@@ -19,10 +19,15 @@ public class RubyController : MonoBehaviour
     float horizontal;
     float vertical;
 
+    Animator animator;
+    Vector2 lookDirection = new Vector2(1, 0);
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<animator>();
+
         currentHealth = maxHealth;
     }
 
@@ -31,7 +36,15 @@ public class RubyController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        Vector2 position = transform.position;
+
+        Vector2 move = new Vector2(horizontal, vertical);
+
+        if(!Mathf.Approxomately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+        {
+            lookDirection.Set(move.x, move.y);
+            lookDirection.Normalize();
+        }
+
         position.x = position.x +3.0f * horizontal * Time.deltaTime;
         position.y = position.y + 3.0f * vertical * Time.deltaTime;
         transform.position = position;
