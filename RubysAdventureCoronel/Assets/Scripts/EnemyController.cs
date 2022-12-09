@@ -26,7 +26,7 @@ public class EnemyController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void update()
+    void Update()
     {
         if(!broken)
         {
